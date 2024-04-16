@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist</title>
+</head>
+<body>
+    <h1>Wishlist</h1>
+    <ul>
+        {% for item in wishlist_items %}
+            <li>
+                <div class="wishlist_item">
+                    <img class="card-img-top" src={{ product.image }} width="300" height="400" class="card-image-top" alt="product image">
+                    <h4 class="card-title">name: {{item.product.name }}</h4>
+                        <p class="card-text">Price: ₹{{item.product.price }}</p>
+                </div>
+                
+                <form method="post" action="{% url 'deletewishlist' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Delete from Wishlist</button>
+                </form>
+            </li>
+        {% empty %}
+            <li>Your wishlist is empty</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }}</li>
+            <div class="col">
+                <div class="card" style="width: 80rem;">
+
+                    <img class="card-img-top" src={{ product.image }} width="300" height="400" class="card-image-top" alt="product image">
+                    <div class="card-body">
+                        <h5 class="card-title">name: {{ product.name }}</h5>
+                        <p class="card-text">price: {{ product.price }}</p>
+                        <p class="card-text">description: {{ product.description }}</p>
+                        <form method="post" action="{% url 'updateproduct' product.id %}" style="display: inline; margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Update</button>
+                        </form>
+    
+                        <form method="post" action="{% url 'deleteProduct' product.id %}" style="display: inline; margin-top: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+
+    <form method="post" action="{% url 'add_product' %}" style="display: inline; margin-top: 10px;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Add New Product</button>
+    </form>
+    
+</body>
+</html>

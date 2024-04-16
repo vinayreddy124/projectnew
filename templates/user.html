@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+    <h1>Product List</h1>
+    <form action="{% url 'wishlist' %}" method="POST">{% csrf_token %}
+        <input type="submit" value="wishlist_items">
+    </form>
+    <ul>
+        {% for product in products %}
+            <li>{{ product.name }}</li>
+            <img class="card-img-top" src={{ product.image }} width="300" height="400" class="card-image-top" alt="product image">
+            <div class="col">
+                <div class="card" style="width: 20rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">name: {{ product.name }}</h5>
+                        <p class="card-text">price: {{ product.price }}</p>
+                        <p class="card-text">discription: {{ product.description }}</p>
+                        
+                        <!-- Add Wishlist Button -->
+                        <form method="post" action="{% url 'addwishlist' product.id %}" style="display: inline;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-info">Add to Wishlist</button>
+                        </form>
+                      
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </ul>
+</body>
+</html>
